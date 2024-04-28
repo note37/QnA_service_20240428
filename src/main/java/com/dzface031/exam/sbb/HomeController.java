@@ -4,6 +4,7 @@ package com.dzface031.exam.sbb;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -110,5 +111,70 @@ public class HomeController {
         return IntStream.rangeClosed(1, limit)
                 .mapToObj(i ->"%d * %d = %d".formatted(finalDan, i, finalDan * i))
                 .collect(Collectors.joining("<br>"));
+    }
+    @GetMapping("/home/returnBoolean")
+    @ResponseBody
+    public boolean showReturnBoolean() {
+        return false;
+    }
+    @GetMapping("/home/returnDouble")
+    @ResponseBody
+    public double showReturnDouble(){
+        return Math.random();
+    }
+
+    @GetMapping("/home/returnIntArr")
+    @ResponseBody
+    public int[] showReturnIntArr(){
+        int[] arr = new int[]{10, 20, 30};
+        return arr;
+    }
+
+    @GetMapping("/home/returnStringList")
+    @ResponseBody
+    public List<String> showReturnStringList(){
+        List<String> list = new ArrayList<>(){{
+            add("안녕");
+            add("반가워");
+            add("어서와");
+        }};
+        return list;
+//        위 리스트 다른 입력 방법
+//        List<String> list2 = new ArrayList<>();
+//        list2.add("안녕");
+//        list2.add("반가워");
+//        list2.add("어서와");
+    }
+
+    @GetMapping("/home/returnMap")
+    @ResponseBody
+    public Map<String, Object> showReturnMap(){
+        Map<String, Object> map = new LinkedHashMap<>(){{
+            put("id",1);
+            put("name","복순이");
+            put("food",new ArrayList<>() {{
+                add("사과");
+                add("당근");
+                add("닭고기");
+
+
+            }});
+
+        }};
+        return map;
+    }
+
+}
+
+class Animal {
+    private final int id;
+    private final String name;
+
+    private final List<String> food;
+
+    public Animal(int id, String name, List<String> food) {
+        this.id = id;
+        this.name = name;
+        this.food = food;
     }
 }
