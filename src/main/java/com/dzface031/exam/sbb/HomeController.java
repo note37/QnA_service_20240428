@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.*;
 // @Controller : 스프링부트한테 해당 클래스느 컨트롤러 역할이라고 알려준다.
 @Controller
 public class HomeController {
+    private int increaseNo;
+    public HomeController(){
+        increaseNo = -1;
+    }
     //@RequestMapping 은 get과 post 방식이 모두 포함되어 있는 방식
     @RequestMapping ("/sbb")
     // @ResponseBody :
@@ -55,5 +59,20 @@ public class HomeController {
                 <h1>입력된 나이 : %d</h1>
                 <h1>안녕하세요 Post 방식으로 오신걸 환영합니다.</h1>
                 """.formatted((age));
+    }
+    @GetMapping("/plus")
+    @ResponseBody
+    // 주소창에 http://localhost:8080/plus?a=2&b=5 입력시 적용
+    public int showPlus(@RequestParam(defaultValue = "0") int a, @RequestParam(defaultValue = "0") int b){
+        return a + b ;
+    }
+
+    //increaseNo 라는 전역변수를 만들어 홈페이지 접속시마다 숫자가 1씩 늘어나게 하는 기능구현
+    @GetMapping("/increase")
+    @ResponseBody
+    public int showIncrease(){
+        increaseNo++;
+        return increaseNo;
+
     }
 }
